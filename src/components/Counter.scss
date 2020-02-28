@@ -1,0 +1,23 @@
+.Counter {
+    width: 10rem;
+    height: 10rem;
+    display: flex;
+    font-size: 1.2rem;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem;
+    
+    color: white;
+
+    font-size: 3rem;
+
+    border-radius: 100%;
+    cursor: pointer;
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    user-select: none;          /* Likely future */  
+
+    transition: background-color 0.75s;
+
+}
