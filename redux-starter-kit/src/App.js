@@ -13,7 +13,7 @@ class App extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if(this.props.number != nextProps.number ) {
+        if(this.props.number !== nextProps.number ) {
             this.getPost(nextProps.number)
         }
     }
@@ -35,8 +35,8 @@ class App extends Component {
         return (
             <div>
                 <h1>{number}</h1>
-                <button onClick={CounterActions.incrementAsync}>+</button>
-                <button onClick={CounterActions.decrement}>-</button>
+                <button onClick={() => CounterActions.increment()}>+</button>
+                <button onClick={() => CounterActions.decrement()}>-</button>
                 {
                     loading &&
                     <h2>로딩중</h2>
@@ -61,10 +61,7 @@ class App extends Component {
 export default connect(
     (state) => ({
         number: state.counter,
-        post: state.post.data,
-        loading: state.post.pending,
-        error: state.post.error
-
+        post: state.post.data
     }),
     (dispatch) => ({
         CounterActions: bindActionCreators(counterActions, dispatch),

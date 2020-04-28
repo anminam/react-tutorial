@@ -1,72 +1,54 @@
-import { handleActions } from "redux-actions";
+import { handleActions, createAction } from "redux-actions";
+import axios from 'axios';
+import {call, put, takeEvery} from 'redux-saga/effects';
 
-import axios from "axios";
-
-function getPostAPI(id) {
-    return axios.get(`https://jsonplaceholder.typicode.com/posts/${id}`)
+function getPostAPI(postId) {
+    return axios.get(`https://jsonplaceholder.typicode.com/posts/${postId}`);
 }
 
-const GET_POST_PENDING = 'GET_POST_PENDING';
+const GET_POST = 'GET_POST';
 const GET_POST_SUCCESS = 'GET_POST_SUCCESS';
 const GET_POST_FAILURE = 'GET_POST_FAILURE';
 
-export const getPost = id => dispatch => {
+export const getPost = createAction(GET_POST, postid => postid);
 
-    dispatch({type:GET_POST_PENDING});
+const something = () => {
+    return {
+        data: {
+            title: 'hello',
+            body: 'world'
+        }
+    }
+}
 
-    return getPostAPI(id)
-        .then((res) => {
-            dispatch({
-                type: GET_POST_SUCCESS,
-                payload: res
-            })
-        })
-        .catch(err=> {
-            dispatch({
-                type: GET_POST_FAILURE,
-                payload: err
-            });
 
-            throw(err)
-        })
+function* getPostSaga(action) {
+    console.log(call(something, ''));
+
+    try {
+        const res = yield call(getPostAPI, action.payload);
+        yield put({ type: GET_POST_SUCCESS, payload: res});
+    } catch(e) {
+        yield put({ type: GET_POST_FAILURE, payload:e});
+    }
 }
 
 const initState = {
-    pending: false,
-    error: false,
-    data : {
+    data: {
         title: '',
-        data: ''
+        body: ''
     }
 }
 
+export function* postSaga() {
+    yield takeEvery('GET_POST', getPostSaga);
+}
 
 export default handleActions({
-    GET_POST_PENDING: (state, action) => {
+    [GET_POST_SUCCESS]: (state, action) => {
+        const {title, body} = action.payload.data;
         return {
-            ...state,
-            pending: true,
-            data: {},
-            error: false
-        }
-    },
-    GET_POST_SUCCESS: (state,action) => {
-        const { title, data} = action.payload.data;
-        return {
-            ...state,
-            pending: false,
-            data: {
-                title,
-                data
-            }
-        }
-    },
-    GET_POST_FAILURE: (state, action) => {
-        return {
-            ...state,
-            pending:false,
-            error: true,
-            data: {}
+            data: {title, body}
         }
     }
-}, initState);
+}, initState)
