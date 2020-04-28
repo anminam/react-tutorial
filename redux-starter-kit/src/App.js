@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import * as counterActions from './modules/counter';
-import * as postActions from './modules/post';
+import { bindActionCreators } from 'redux';
+import * as counterActions from "./modules/counter";
 
 
 class App extends Component {
@@ -35,9 +34,9 @@ class App extends Component {
         return (
             <div>
                 <h1>{number}</h1>
-                <button onClick={() => CounterActions.increment()}>+</button>
+                <button onClick={() => CounterActions.incrementAsync()}>+</button>
                 <button onClick={() => CounterActions.decrement()}>-</button>
-                {
+                {/* {
                     loading &&
                     <h2>로딩중</h2>
                 }
@@ -52,7 +51,7 @@ class App extends Component {
                                 </div>
                             </div>
                         
-                }
+                } */}
             </div>
         );
     }
@@ -61,10 +60,9 @@ class App extends Component {
 export default connect(
     (state) => ({
         number: state.counter,
-        post: state.post.data
+        // post: state.post.data
     }),
     (dispatch) => ({
-        CounterActions: bindActionCreators(counterActions, dispatch),
-        PostActions: bindActionCreators(postActions, dispatch)
+        CounterActions: bindActionCreators(counterActions, dispatch)
     })
 )(App);
