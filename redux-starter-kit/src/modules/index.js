@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import counter, {counterSaga} from './counter';
+import counter,{counterSaga} from "./counter";
 import { all } from "redux-saga/effects";
 
 

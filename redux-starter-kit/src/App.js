@@ -35,7 +35,7 @@ class App extends Component {
             <div>
                 <h1>{number}</h1>
                 <button onClick={() => CounterActions.incrementAsync()}>+</button>
-                <button onClick={() => CounterActions.decrement()}>-</button>
+                <button onClick={() => CounterActions.decrementAsync()}>-</button>
                 {/* {
                     loading &&
                     <h2>로딩중</h2>

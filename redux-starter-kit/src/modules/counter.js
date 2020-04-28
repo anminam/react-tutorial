@@ -1,33 +1,32 @@
-import { delay } from "redux-saga/effects";
-import {put, takeEvery} from 'redux-saga/effects';
-import {handleActions, createAction} from 'redux-actions';
+import { createActions, handleAction, createAction, handleActions } from "redux-actions";
+import { delay, put, takeEvery } from "redux-saga/effects";
 
-const INCREMENT = 'INCREMENT'; 
-const DECREMENT = 'DECREMENT'; 
-const INCREMENT_ASYNC = 'INCREMENT_ASYNC'; 
-const DECREMENT_ASYNC = 'DECREMENT_ASYNC'; 
+const INCREMENT = 'INCREMENT';
+const DECREMENT = 'DECREMENT';
+const INCREMENT_ASYMC = 'INCREMENT_ASYMC';
+const DECREMENT_ASYNC = 'DECREMENT_ASYNC';
 
 export const increment = createAction(INCREMENT);
 export const decrement = createAction(DECREMENT);
-export const incrementAsync = createAction(INCREMENT_ASYNC);
-export const decrementAsync = createAction(DECREMENT_ASYNC);
+export const incrementAsync = createAction(INCREMENT_ASYMC);
+export const decrementASync = createAction(DECREMENT_ASYNC);
 
-function* incrementAsyncSaga() {
-    yield delay(1000)
+export function* incrementAsyncSaga() {
+    yield delay(1000);
     yield put(increment())
 }
 
-function* decrementAsyncSaga() {
-    yield delay(1000)
-    yield put(decrement())
+export function* decrementAsyncSaga() {
+    yield delay(1000);
+    yield put(decrement());
 }
 
 export function* counterSaga() {
-    yield takeEvery(INCREMENT_ASYNC, incrementAsyncSaga);
+    yield takeEvery(INCREMENT_ASYMC, incrementAsyncSaga);
     yield takeEvery(DECREMENT_ASYNC, decrementAsyncSaga);
 }
 
 export default handleActions({
-    [INCREMENT]: (state, action) => state + 1,
+    [INCREMENT]: (state,action) => state + 1,
     [DECREMENT]: (state, action) => state - 1
-}, 1);
+},1)
