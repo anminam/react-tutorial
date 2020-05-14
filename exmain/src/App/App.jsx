@@ -1,42 +1,18 @@
 import React, { Fragment, useState } from "react";
-import { Camera } from "../camera";
-import { Root, Preview, Footer, GlobalStyle } from "../styles";
-
+import { persons } from "../core";
+import Person from "../components/Person";
+import '../styles/index.css';
 function App() {
-  const [isCameraOpen, setIsCameraOpen] = useState(false);
-  const [cardImage, setCardImage] = useState();
-
   return (
-    <Fragment>
-      <Root>
-        {isCameraOpen && (
-          <Camera
-            onCapture={blob => setCardImage(blob)}
-            onClear={() => setCardImage(undefined)}
-          />
-        )}
-
-        {cardImage && (
-          <div>
-            <h2>Preview</h2>
-            <Preview src={cardImage && URL.createObjectURL(cardImage)} />
-          </div>
-        )}
-
-        <Footer>
-          <button onClick={() => setIsCameraOpen(true)}>Open Camera</button>
-          <button
-            onClick={() => {
-              setIsCameraOpen(false);
-              setCardImage(undefined);
-            }}
-          >
-            Close Camera
-          </button>
-        </Footer>
-      </Root>
-      <GlobalStyle />
-    </Fragment>
+    <ul>
+      {
+        persons && persons.map((person, i) => {
+          return (
+            <Person obj={person} key={i} />
+          )
+        })
+      }
+    </ul>
   );
 }
 
