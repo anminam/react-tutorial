@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import { persons } from "../core";
+import { persons } from "../.data/person";
 import Person from "../components/Person";
 import '../styles/index.css';
 function App() {

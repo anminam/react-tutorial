@@ -12,6 +12,7 @@ const Person = ({obj}) => {
         <div>생년월일: {obj.birthday}</div>
         <div>나이: {calcAge(obj.birthday)}</div>
         {/* <div>학교: {obj.university}</div> */}
+        <div>시간: {obj.time}</div>
         <div>전공: {obj.major}</div>
         <div>학점 : {obj.jumsu}</div>
         <div>경력: {ruddfur}</div>
@@ -105,7 +106,6 @@ const getdata = (companies) => {
     labels: dateList,
     datasets: [
       {
-        // labels: ["긍정적", "부정적", "보통"],
         data: dataList,
         borderWidth: 5,
         hoverBorderWidth: 3,
